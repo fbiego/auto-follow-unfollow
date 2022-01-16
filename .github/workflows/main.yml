@@ -1,5 +1,5 @@
 name: Script
-on: workflow_dispatch
+on: push # workflow_dispatch
 # on: 
 #     schedule:
 #     - cron: "0 15 * * 1"
@@ -16,7 +16,7 @@ jobs:
 
         - name: execute php script # run the script.php
           run: |
-              php script.php fbiego
+              php script.php fbiego ${{ secrets.GITHUB_TOKEN }}
               
         - name: commit files
           run: |
