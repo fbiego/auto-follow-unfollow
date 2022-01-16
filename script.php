@@ -14,12 +14,12 @@ function getHeaders($curl, $header_line)
     return strlen($header_line);
 }
 
-function checkCount()
+function checkCount($u, $p)
 {
     $cURLConnection = curl_init();
     curl_setopt($cURLConnection, CURLOPT_URL, "https://api.github.com/user");
     curl_setopt($cURLConnection, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($cURLConnection, CURLOPT_USERPWD, $username . ":" . $password);
+    curl_setopt($cURLConnection, CURLOPT_USERPWD, $u . ":" . $p);
     curl_setopt($cURLConnection, CURLOPT_HEADERFUNCTION, "getHeaders");
     curl_setopt($cURLConnection, CURLOPT_HTTPHEADER, [
         "Accept: application/vnd.github.v3+json",
