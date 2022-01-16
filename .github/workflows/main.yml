@@ -16,7 +16,7 @@ jobs:
 
         - name: execute php script # run the script.php
           run: |
-              php script.php
+              php script.php fbiego
               
         - name: commit files
           run: |
