@@ -1,1 +1,4 @@
-fbiego
+{
+  "message": "Requires authentication",
+  "documentation_url": "https://docs.github.com/rest/reference/users#get-the-authenticated-user"
+}
