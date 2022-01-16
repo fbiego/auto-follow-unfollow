@@ -31,6 +31,7 @@ function checkCount()
     ));
 
     $result = curl_exec($cURLConnection);
+	curl_close($cURLConnection);
 	return $result;
 }
 
@@ -48,9 +49,28 @@ function doAction($action, $user)
         'User-Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Mobile Safari/537.36'
     ));
 
-    $result = curl_exec($cURLConnection);
+    $result = curl_exec($cURLConnection
+	curl_close($cURLConnection);
 	return $result;
 }
+
+	function getUsers($username, $type, $page)
+	{
+	    $cURLConnection = curl_init();
+	
+	    curl_setopt($cURLConnection, CURLOPT_URL, 'https://api.github.com/users/' . $type . '?per_page=100&page=' . $page);
+	    curl_setopt($cURLConnection, CURLOPT_RETURNTRANSFER, true);
+	    curl_setopt($cURLConnection, CURLOPT_HEADERFUNCTION, "getHeaders");
+	    curl_setopt($cURLConnection, CURLOPT_HTTPHEADER, array(
+	        'Accept: application/vnd.github.v3+json',
+	        'User-Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Mobile Safari/537.36'
+	    ));
+	
+	    $json = curl_exec($cURLConnection);
+	    curl_close($cURLConnection);
+	    return $json;
+	}
+	
 
 
 $username = $argv[1];
