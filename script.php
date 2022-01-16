@@ -83,6 +83,11 @@ $password = $argv[2];
 $res = checkCount($username, $password);
 $data = json_decode($res, true);
 
+$cTs = $data['followers'];
+$cTg = $data['following'];
+$cFs = 0;
+$cFg = 0;
+
 if ($data['followers'] != $data['following']){
 	$followers = array();
 	$Followers = [];
@@ -142,7 +147,8 @@ if ($data['followers'] != $data['following']){
 	        if(!array_key_exists($fl['login'], $Followers)){
 	            $dif2[$fl['login']] = $fl['html_url'];
 	            doAction($username, $password, "DELETE", $fl['login']);
-				$change = $change . "Unfollow ". $fl['login'] .PHP_EOL;
+				$change = $change . "Unfollow ". $fl['login'] .PHP_EOL
+				$cFs = $cFs - 1;
 	        }
 	    }
 	    foreach($followers as $fl){
@@ -150,15 +156,32 @@ if ($data['followers'] != $data['following']){
 	            $dif1[$fl['login']] = $fl['html_url'];
 				doAction($username, $password, "PUT", $fl['login']);
 				$change = $change . "Follow ". $fl['login'] .PHP_EOL;
+				$cFg = $cFg + 1;
 	        }
 	    }
-		file_put_contents("change.txt", $change . $message);
+		//file_put_contents("change.txt", $change . $message);
 	
 } else {
-	file_put_contents("change.txt", "No changes". $message);
+	//file_put_contents("change.txt", "No changes". $message);
 }
 //$res = $username;
+date_default_timezone_set('UTC');
 
+$readme = "# auto-follow-unfollow";
+$readme . ="Follow and unfollow users automatically\n";
+
+$readme . ="[![Script](https://github.com/fbiego/auto-follow-unfollow/actions/workflows/main.yml/badge.svg)](https://github.com/fbiego/auto-follow-unfollow/actions/workflows/main.yml)";
+
+$readme . ="\n### Run details\n";
+
+$readme . ="- Last run `".date(DATE_RFC2822)."`\n";
+
+$readme . ="|  | Followers | Following |\n";
+$readme . ="| - | --------- | --------- |\n";
+$readme . ="| Current | ".$cTs." | ".$cTg." |\n";
+$readme . ="| Change | ".$cFs." | ".$cFg."|\n";
+
+file_put_contents("README.md", $readme);
 
 
 ?>
