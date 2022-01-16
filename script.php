@@ -2,6 +2,7 @@
 
 $limit = 5000;
 $used = 0;
+$message = "";
 
 function getHeaders($curl, $header_line)
 {
@@ -69,6 +70,8 @@ function getUsers($u, $p, $type, $page)
     ]);
     $json = curl_exec($cURLConnection);
     curl_close($cURLConnection);
+	$obj = json_decode($json);
+	$GLOBALS['message'] = $GLOBALS['message'] . $obj['message'];
     return $json;
 }
 
