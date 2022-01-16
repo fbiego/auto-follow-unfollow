@@ -167,7 +167,7 @@ if ($data["followers"] != $data["following"]) {
 date_default_timezone_set("UTC");
 
 $readme = "# auto-follow-unfollow\n";
-$readme .= "Follow and unfollow users automatically\n";
+$readme .= "Follow and unfollow users automatically\n\n";
 
 $readme .=
     "[![Script](https://github.com/fbiego/auto-follow-unfollow/actions/workflows/main.yml/badge.svg)](https://github.com/fbiego/auto-follow-unfollow/actions/workflows/main.yml)";
