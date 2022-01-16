@@ -79,7 +79,8 @@ function doAction($action, $user)
 $username = $argv[1];
 $password = $argv[2];
 
-$res = checkCount();
+//$res = checkCount;
+			$res = $username;
 
 file_put_contents($res, "test.txt");
 
