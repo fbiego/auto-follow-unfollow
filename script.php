@@ -126,8 +126,8 @@ if ($data['followers'] != $data['following']){
 	        $z++;
 	    }
 		
-		array_multisort(array_column($followers, 'login'), SORT_ASC, $followers);
-		array_multisort(array_column($following, 'login'), SORT_ASC, $following);
+		//array_multisort(array_column($followers, 'login'), SORT_ASC, $followers);
+		//array_multisort(array_column($following, 'login'), SORT_ASC, $following);
 		
 		$change = "";
 	    
