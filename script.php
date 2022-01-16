@@ -79,11 +79,81 @@ $res = checkCount($username, $password);
 $data = json_decode($res, true);
 
 if ($data['followers'] != $data['following']){
+	$followers = array();
+	$Followers = [];
+	$Following = [];
+	$following = array();
+	$dif1 = [];
+	$dif2 = [];
 	
+	$z = 1;
+	    while ($z <= 30)
+	    {
+	        $list = json_decode(getUsers($username, $password, "followers", $z) , true);
+	        if (count($list) == 0)
+	        {
+	            break;
+	        }
+	        if ($message != "")
+	        {
+	            break;
+	        }
+	        $followers = array_merge($list, $followers);
+			
+			//foreach ($list as $lg){
+			//	array_push($followers, $lg['login'];
+			//}
+	        $z++;
+	    }
 	
+	    //query following
+	    $z = 1;
+	    while ($z <= 30)
+	    {
+	        $list = json_decode(getUsers($username, $password, "following", $z) , true);
+	        if (count($list) == 0)
+	        {
+	            break;
+	        }
+	        if ($message != "")
+	        {
+	            break;
+	        }
+	        $following = array_merge($list, $following);
+	        $z++;
+	    }
+		
+		array_multisort(array_column($followers, 'login'), SORT_ASC, $followers);
+		array_multisort(array_column($following, 'login'), SORT_ASC, $following);
+		
+		$change = "";
+	    
+	    foreach($followers as $fl){
+	        $Followers[$fl['login']] = $fl['html_url'];
+	    }
+		
+		foreach($following as $fl){
+	        $Following[$fl['login']] = $fl['html_url'];
+	        if(!array_key_exists($fl['login'], $Followers)){
+	            $dif2[$fl['login']] = $fl['html_url'];
+	            doAction($username, $password, "DELETE", $fl['login']);
+				$change = $change . "Unfollow ". $fl['login'] .PHP_EOL;
+	        }
+	    }
+	    foreach($followers as $fl){
+	        if(!array_key_exists($fl['login'], $Following)){
+	            $dif1[$fl['login']] = $fl['html_url'];
+				doAction($username, $password, "PUT", $fl['login']);
+				$change = $change . "Follow ". $fl['login'] .PHP_EOL;
+	        }
+	    }
+		file_put_contents("change.txt", $change);
+	
+} else {
+	file_put_contents("change.txt", "No changes");
 }
 //$res = $username;
 
-file_put_contents("test.txt", $res);
+
 
 ?>
