@@ -166,7 +166,7 @@ if ($data["followers"] != $data["following"]) {
 //$res = $username;
 date_default_timezone_set("UTC");
 
-$readme = "# auto-follow-unfollow";
+$readme = "# auto-follow-unfollow\n";
 $readme .= "Follow and unfollow users automatically\n";
 
 $readme .=
@@ -174,12 +174,12 @@ $readme .=
 
 $readme .= "\n### Run details\n";
 
-$readme .= "- Last run `" . date(DATE_RFC2822) . "`\n";
+$readme .= "- Last run `" . date(DATE_RFC2822) . "`\n\n";
 
 $readme .= "|  | Followers | Following |\n";
 $readme .= "| - | --------- | --------- |\n";
-$readme .= "| Current | " . $cTs . " | " . $cTg . " |\n";
-$readme .= "| Change | " . ($cFs + $cTs) . " | " . ($cFg + $cTg) . "|\n";
+$readme .= "| Current | " . ($cFs + $cTs). " | " . ($cFg + $cTg) . " |\n";
+$readme .= "| Change | " . $cFs . " | " . $cFg . "|\n";
 
 file_put_contents("README.md", $readme);
 
