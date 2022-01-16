@@ -75,8 +75,8 @@ function getUsers($type, $page)
 $username = $argv[1];
 $password = $argv[2];
 
-//$res = checkCount;
-$res = $username;
+$res = checkCount();
+//$res = $username;
 
 file_put_contents("test.txt", $res);
 
