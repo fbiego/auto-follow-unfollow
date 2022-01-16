@@ -1,5 +1,5 @@
 name: Script
-on: workflow_dispatch
+on: push
 # on: 
 #     schedule:
 #     - cron: "0 15 * * 1"
