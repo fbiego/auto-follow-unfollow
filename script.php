@@ -24,6 +24,7 @@ function checkCount()
 
     curl_setopt($cURLConnection, CURLOPT_URL, 'https://api.github.com/user');
     curl_setopt($cURLConnection, CURLOPT_RETURNTRANSFER, true);
+	curl_setopt($cURLConnection, CURLOPT_USERPWD, $username . ":" . $password);  
 	curl_setopt($cURLConnection, CURLOPT_HEADERFUNCTION, "getHeaders");
     curl_setopt($cURLConnection, CURLOPT_HTTPHEADER, array(
         'Accept: application/vnd.github.v3+json',
@@ -42,6 +43,7 @@ function doAction($action, $user)
 
     curl_setopt($cURLConnection, CURLOPT_URL, 'https://api.github.com/user/following/' . $user);
     curl_setopt($cURLConnection, CURLOPT_RETURNTRANSFER, true);
+	curl_setopt($cURLConnection, CURLOPT_USERPWD, $username . ":" . $password);  
 	curl_setopt($cURLConnection, CURLOPT_CUSTOMREQUEST, $action);
 	curl_setopt($cURLConnection, CURLOPT_HEADERFUNCTION, "getHeaders");
     curl_setopt($cURLConnection, CURLOPT_HTTPHEADER, array(
@@ -54,12 +56,13 @@ function doAction($action, $user)
 	return $result;
 }
 
-	function getUsers($username, $type, $page)
+	function getUsers($type, $page)
 	{
 	    $cURLConnection = curl_init();
 	
 	    curl_setopt($cURLConnection, CURLOPT_URL, 'https://api.github.com/users/' . $type . '?per_page=100&page=' . $page);
 	    curl_setopt($cURLConnection, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($cURLConnection, CURLOPT_USERPWD, $username . ":" . $password);  
 	    curl_setopt($cURLConnection, CURLOPT_HEADERFUNCTION, "getHeaders");
 	    curl_setopt($cURLConnection, CURLOPT_HTTPHEADER, array(
 	        'Accept: application/vnd.github.v3+json',
@@ -74,7 +77,11 @@ function doAction($action, $user)
 
 
 $username = $argv[1];
-$token = $argv[2];
+$password = $argv[2];
+
+$res = checkCount();
+
+file_put_contents($res, "test.txt");
 
 
 ?>
