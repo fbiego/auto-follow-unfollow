@@ -1,0 +1,31 @@
+name: Script
+on: 
+    schedule:
+    - cron: "0 15 * * 1"
+    
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        steps:
+        
+        - name: checkout repo content
+          uses: actions/checkout@v2 # checkout the repository content to github runner.
+        - name: PHP Runner
+          uses: franzliedke/gh-action-php@0.2.0
+
+        - name: execute php script # run the run.py to get the latest data
+          run: |
+              php script.php fbiego ${{ secrets.GITHUB_TOKEN }}
+              
+        - name: commit files
+          run: |
+                git config --local user.email "fbiego.fb@gmail.com"
+                git config --local user.name "fbiego"
+                git add -A
+                git commit -m "run script" -a
+        
+        - name: push changes
+          uses: ad-m/github-push-action@v0.6.0
+          with:
+            github_token: ${{ secrets.GITHUB_TOKEN }}
+            branch: main 
