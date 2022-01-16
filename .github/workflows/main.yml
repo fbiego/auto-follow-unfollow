@@ -14,9 +14,9 @@ jobs:
         - name: PHP Runner
           uses: franzliedke/gh-action-php@0.2.0
 
-        - name: execute php script # run the run.py to get the latest data
+        - name: execute php script # run the script.php
           run: |
-              php script.php fbiego ${{ secrets.GITHUB_TOKEN }}
+              php script.php fbiego
               
         - name: commit files
           run: |
