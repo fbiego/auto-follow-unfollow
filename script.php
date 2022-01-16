@@ -131,31 +131,31 @@ if ($data['followers'] != $data['following']){
 		//array_multisort(array_column($followers, 'login'), SORT_ASC, $followers);
 		//array_multisort(array_column($following, 'login'), SORT_ASC, $following);
 		
-		$change = "";
+		$change = "" . json_encode($following);
 	    
-	    foreach($followers as $fl){
-	        $Followers[$fl['login']] = $fl['html_url'];
-	    }
+	    // foreach($followers as $fl){
+	        // $Followers[$fl['login']] = $fl['html_url'];
+	    // }
 		
-		foreach($following as $fl){
-	        $Following[$fl['login']] = $fl['html_url'];
-	        if(!array_key_exists($fl['login'], $Followers)){
-	            $dif2[$fl['login']] = $fl['html_url'];
-	            doAction($username, $password, "DELETE", $fl['login']);
-				$change = $change . "Unfollow ". $fl['login'] .PHP_EOL;
-	        }
-	    }
-	    foreach($followers as $fl){
-	        if(!array_key_exists($fl['login'], $Following)){
-	            $dif1[$fl['login']] = $fl['html_url'];
-				doAction($username, $password, "PUT", $fl['login']);
-				$change = $change . "Follow ". $fl['login'] .PHP_EOL;
-	        }
-	    }
-		file_put_contents("change.txt", $change);
+		// foreach($following as $fl){
+	        // $Following[$fl['login']] = $fl['html_url'];
+	        // if(!array_key_exists($fl['login'], $Followers)){
+	            // $dif2[$fl['login']] = $fl['html_url'];
+	            // doAction($username, $password, "DELETE", $fl['login']);
+				// $change = $change . "Unfollow ". $fl['login'] .PHP_EOL;
+	        // }
+	    // }
+	    // foreach($followers as $fl){
+	        // if(!array_key_exists($fl['login'], $Following)){
+	            // $dif1[$fl['login']] = $fl['html_url'];
+				// doAction($username, $password, "PUT", $fl['login']);
+				// $change = $change . "Follow ". $fl['login'] .PHP_EOL;
+	        // }
+	    // }
+		file_put_contents("change.txt", $change . $message);
 	
 } else {
-	file_put_contents("change.txt", "No changes");
+	file_put_contents("change.txt", "No changes". $message);
 }
 //$res = $username;
 
