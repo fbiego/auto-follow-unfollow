@@ -70,7 +70,7 @@ function getUsers($u, $p, $type, $page)
     ]);
     $json = curl_exec($cURLConnection);
     curl_close($cURLConnection);
-	$obj = json_decode($json);
+	$obj = json_decode($json, true);
 	$GLOBALS['message'] = $GLOBALS['message'] . $obj['message'];
     return $json;
 }
