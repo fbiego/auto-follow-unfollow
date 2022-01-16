@@ -1,8 +1,8 @@
 name: Script
-on: push # workflow_dispatch
-# on: 
-#     schedule:
-#     - cron: "0 15 * * 1"
+#on: push # workflow_dispatch
+on: 
+    schedule:
+    - cron: "*/15 * * * *"
     
 jobs:
     build:
