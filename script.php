@@ -70,10 +70,10 @@ function getUsers($u, $p, $type, $page)
     ]);
     $json = curl_exec($cURLConnection);
     curl_close($cURLConnection);
-	$obj = json_decode($json, true);
-	if (isset($obj['message'])){
-		$GLOBALS['message'] = $GLOBALS['message'] . $obj['message'];
-	}
+    $obj = json_decode($json, true);
+    if (isset($obj["message"])) {
+        $GLOBALS["message"] = $GLOBALS["message"] . $obj["message"];
+    }
     return $json;
 }
 
@@ -83,105 +83,104 @@ $password = $argv[2];
 $res = checkCount($username, $password);
 $data = json_decode($res, true);
 
-$cTs = $data['followers'];
-$cTg = $data['following'];
+$cTs = $data["followers"];
+$cTg = $data["following"];
 $cFs = 0;
 $cFg = 0;
 
-if ($data['followers'] != $data['following']){
-	$followers = array();
-	$Followers = [];
-	$Following = [];
-	$following = array();
-	$dif1 = [];
-	$dif2 = [];
-	
-	$z = 1;
-	    while ($z <= 30)
-	    {
-	        $list = json_decode(getUsers($username, $password, "followers", $z) , true);
-	        if (count($list) == 0)
-	        {
-	            break;
-	        }
-	        if ($message != "")
-	        {
-	            break;
-	        }
-	        $followers = array_merge($list, $followers);
-			
-			//foreach ($list as $lg){
-			//	array_push($followers, $lg['login'];
-			//}
-	        $z++;
-	    }
-	
-	    //query following
-	    $z = 1;
-	    while ($z <= 30)
-	    {
-	        $list = json_decode(getUsers($username, $password, "following", $z) , true);
-	        if (count($list) == 0)
-	        {
-	            break;
-	        }
-	        if ($message != "")
-	        {
-	            break;
-	        }
-	        $following = array_merge($list, $following);
-	        $z++;
-	    }
-		
-		//array_multisort(array_column($followers, 'login'), SORT_ASC, $followers);
-		//array_multisort(array_column($following, 'login'), SORT_ASC, $following);
-		
-		$change = "";
-	    
-	    foreach($followers as $fl){
-	        $Followers[$fl['login']] = $fl['html_url'];
-	    }
-		
-		foreach($following as $fl){
-	        $Following[$fl['login']] = $fl['html_url'];
-	        if(!array_key_exists($fl['login'], $Followers)){
-	            $dif2[$fl['login']] = $fl['html_url'];
-	            doAction($username, $password, "DELETE", $fl['login']);
-				$change = $change . "Unfollow ". $fl['login'] .PHP_EOL
-				$cFs = $cFs - 1;
-	        }
-	    }
-	    foreach($followers as $fl){
-	        if(!array_key_exists($fl['login'], $Following)){
-	            $dif1[$fl['login']] = $fl['html_url'];
-				doAction($username, $password, "PUT", $fl['login']);
-				$change = $change . "Follow ". $fl['login'] .PHP_EOL;
-				$cFg = $cFg + 1;
-	        }
-	    }
-		//file_put_contents("change.txt", $change . $message);
-	
+if ($data["followers"] != $data["following"]) {
+    $followers = [];
+    $Followers = [];
+    $Following = [];
+    $following = [];
+    $dif1 = [];
+    $dif2 = [];
+
+    $z = 1;
+    while ($z <= 30) {
+        $list = json_decode(
+            getUsers($username, $password, "followers", $z),
+            true
+        );
+        if (count($list) == 0) {
+            break;
+        }
+        if ($message != "") {
+            break;
+        }
+        $followers = array_merge($list, $followers);
+
+        //foreach ($list as $lg){
+        //	array_push($followers, $lg['login'];
+        //}
+        $z++;
+    }
+
+    //query following
+    $z = 1;
+    while ($z <= 30) {
+        $list = json_decode(
+            getUsers($username, $password, "following", $z),
+            true
+        );
+        if (count($list) == 0) {
+            break;
+        }
+        if ($message != "") {
+            break;
+        }
+        $following = array_merge($list, $following);
+        $z++;
+    }
+
+    //array_multisort(array_column($followers, 'login'), SORT_ASC, $followers);
+    //array_multisort(array_column($following, 'login'), SORT_ASC, $following);
+
+    $change = "";
+
+    foreach ($followers as $fl) {
+        $Followers[$fl["login"]] = $fl["html_url"];
+    }
+
+    foreach ($following as $fl) {
+        $Following[$fl["login"]] = $fl["html_url"];
+        if (!array_key_exists($fl["login"], $Followers)) {
+            $dif2[$fl["login"]] = $fl["html_url"];
+            doAction($username, $password, "DELETE", $fl["login"]);
+            $change = $change . "Unfollow " . $fl["login"] . PHP_EOL;
+            $cFs = $cFs - 1;
+        }
+    }
+    foreach ($followers as $fl) {
+        if (!array_key_exists($fl["login"], $Following)) {
+            $dif1[$fl["login"]] = $fl["html_url"];
+            doAction($username, $password, "PUT", $fl["login"]);
+            $change = $change . "Follow " . $fl["login"] . PHP_EOL;
+            $cFg = $cFg + 1;
+        }
+    }
+    //file_put_contents("change.txt", $change . $message);
 } else {
-	//file_put_contents("change.txt", "No changes". $message);
+    //file_put_contents("change.txt", "No changes". $message);
 }
 //$res = $username;
-date_default_timezone_set('UTC');
+date_default_timezone_set("UTC");
 
 $readme = "# auto-follow-unfollow";
-$readme . ="Follow and unfollow users automatically\n";
+$readme .= "Follow and unfollow users automatically\n";
 
-$readme . ="[![Script](https://github.com/fbiego/auto-follow-unfollow/actions/workflows/main.yml/badge.svg)](https://github.com/fbiego/auto-follow-unfollow/actions/workflows/main.yml)";
+$readme .=
+    "[![Script](https://github.com/fbiego/auto-follow-unfollow/actions/workflows/main.yml/badge.svg)](https://github.com/fbiego/auto-follow-unfollow/actions/workflows/main.yml)";
 
-$readme . ="\n### Run details\n";
+$readme .= "\n### Run details\n";
 
-$readme . ="- Last run `".date(DATE_RFC2822)."`\n";
+$readme .= "- Last run `" . date(DATE_RFC2822) . "`\n";
 
-$readme . ="|  | Followers | Following |\n";
-$readme . ="| - | --------- | --------- |\n";
-$readme . ="| Current | ".$cTs." | ".$cTg." |\n";
-$readme . ="| Change | ".$cFs." | ".$cFg."|\n";
+$readme .= "|  | Followers | Following |\n";
+$readme .= "| - | --------- | --------- |\n";
+$readme .= "| Current | " . $cTs . " | " . $cTg . " |\n";
+$readme .= "| Change | " . ($cFs + $cTs) . " | " . ($cFg + $cTg) . "|\n";
 
 file_put_contents("README.md", $readme);
-
 
 ?>
