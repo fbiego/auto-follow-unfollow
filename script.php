@@ -174,7 +174,9 @@ $readme .=
 
 $readme .= "\n### Run details\n";
 
-$readme .= "- Last run `" . date(DATE_RFC2822) . "`\n\n";
+$readme .= "- Last run `" . date(DATE_RFC2822) . "`\n";
+$readme .= "- X-RateLimit-Used: `" . $used . "`\n";
+$readme .= "- X-RateLimit-Limit: `" . $limit . "`\n\n";
 
 $readme .= "|  | Followers | Following |\n";
 $readme .= "| - | --------- | --------- |\n";
