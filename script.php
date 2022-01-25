@@ -79,7 +79,6 @@ function getUsers($u, $p, $type, $page)
 
 function notify($msg)
 {
-	echo $msg;
     $cURLConnection = curl_init();
     curl_setopt(
         $cURLConnection,
@@ -89,7 +88,7 @@ function notify($msg)
     curl_setopt($cURLConnection, CURLOPT_RETURNTRANSFER, true);
     $json = curl_exec($cURLConnection);
     curl_close($cURLConnection);
-	echo $json;
+	
 }
 
 
@@ -159,7 +158,7 @@ if ($data["followers"] != $data["following"]) {
     }
 	
 	$changes = false;
-	$ms = "New change" . PHP_EOL;
+	$ms = "*New change*" . PHP_EOL  . PHP_EOL;
 
     foreach ($following as $fl) {
         $Following[$fl["login"]] = $fl["html_url"];
@@ -173,6 +172,7 @@ if ($data["followers"] != $data["following"]) {
 			$ms .= $fl["html_url"] . PHP_EOL;
         }
     }
+	$ms .=  PHP_EOL;
     foreach ($followers as $fl) {
         if (!array_key_exists($fl["login"], $Following)) {
             $dif1[$fl["login"]] = $fl["html_url"];
