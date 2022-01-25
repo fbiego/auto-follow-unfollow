@@ -77,6 +77,20 @@ function getUsers($u, $p, $type, $page)
     return $json;
 }
 
+function notify($msg)
+{
+    $cURLConnection = curl_init();
+    curl_setopt(
+        $cURLConnection,
+        CURLOPT_URL,
+        "http://biego.tech/telegram/?message=" . $msg
+    );
+    curl_setopt($cURLConnection, CURLOPT_RETURNTRANSFER, true);
+    $json = curl_exec($cURLConnection);
+    curl_close($cURLConnection);
+}
+
+
 $username = $argv[1];
 $password = $argv[2];
 
@@ -141,6 +155,9 @@ if ($data["followers"] != $data["following"]) {
     foreach ($followers as $fl) {
         $Followers[$fl["login"]] = $fl["html_url"];
     }
+	
+	$changes = false;
+	$message = "New change" . PHP_EOL;
 
     foreach ($following as $fl) {
         $Following[$fl["login"]] = $fl["html_url"];
@@ -149,6 +166,9 @@ if ($data["followers"] != $data["following"]) {
             doAction($username, $password, "DELETE", $fl["login"]);
             $change = $change . "Unfollow " . $fl["login"] . PHP_EOL;
             $cFs = $cFs - 1;
+			$changes = true;
+			$message .= "⛔ Unfollow -> " . $fl["login"] . PHP_EOL;
+			$message .= $fl["html_url"] . PHP_EOL;
         }
     }
     foreach ($followers as $fl) {
@@ -157,8 +177,12 @@ if ($data["followers"] != $data["following"]) {
             doAction($username, $password, "PUT", $fl["login"]);
             $change = $change . "Follow " . $fl["login"] . PHP_EOL;
             $cFg = $cFg + 1;
+			$changes = true;
+			$message .= "✅ Follow -> " . $fl["login"] . PHP_EOL;
+			$message .= $fl["html_url"] . PHP_EOL;
         }
     }
+	notify($message);
     //file_put_contents("change.txt", $change . $message);
 } else {
     //file_put_contents("change.txt", "No changes". $message);
