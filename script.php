@@ -157,7 +157,7 @@ if ($data["followers"] != $data["following"]) {
     }
 	
 	$changes = false;
-	$message = "New change" . PHP_EOL;
+	$ms = "New change" . PHP_EOL;
 
     foreach ($following as $fl) {
         $Following[$fl["login"]] = $fl["html_url"];
@@ -167,8 +167,8 @@ if ($data["followers"] != $data["following"]) {
             $change = $change . "Unfollow " . $fl["login"] . PHP_EOL;
             $cFs = $cFs - 1;
 			$changes = true;
-			$message .= "⛔ Unfollow -> " . $fl["login"] . PHP_EOL;
-			$message .= $fl["html_url"] . PHP_EOL;
+			$ms .= "⛔ Unfollow -> " . $fl["login"] . PHP_EOL;
+			$ms .= $fl["html_url"] . PHP_EOL;
         }
     }
     foreach ($followers as $fl) {
@@ -178,11 +178,11 @@ if ($data["followers"] != $data["following"]) {
             $change = $change . "Follow " . $fl["login"] . PHP_EOL;
             $cFg = $cFg + 1;
 			$changes = true;
-			$message .= "✅ Follow -> " . $fl["login"] . PHP_EOL;
-			$message .= $fl["html_url"] . PHP_EOL;
+			$ms .= "✅ Follow -> " . $fl["login"] . PHP_EOL;
+			$ms .= $fl["html_url"] . PHP_EOL;
         }
     }
-	notify($message);
+	notify($ms);
     //file_put_contents("change.txt", $change . $message);
 } else {
     //file_put_contents("change.txt", "No changes". $message);
