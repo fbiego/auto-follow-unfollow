@@ -79,6 +79,7 @@ function getUsers($u, $p, $type, $page)
 
 function notify($msg)
 {
+	echo $msg;
     $cURLConnection = curl_init();
     curl_setopt(
         $cURLConnection,
@@ -88,6 +89,7 @@ function notify($msg)
     curl_setopt($cURLConnection, CURLOPT_RETURNTRANSFER, true);
     $json = curl_exec($cURLConnection);
     curl_close($cURLConnection);
+	echo $json;
 }
 
 
