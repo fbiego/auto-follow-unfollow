@@ -83,7 +83,7 @@ function notify($msg)
     curl_setopt(
         $cURLConnection,
         CURLOPT_URL,
-        "http://biego.tech/telegram/?message=" . $msg
+        "http://biego.tech/telegram/?message=" . urlencode($msg)
     );
     curl_setopt($cURLConnection, CURLOPT_RETURNTRANSFER, true);
     $json = curl_exec($cURLConnection);
