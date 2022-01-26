@@ -91,6 +91,20 @@ function notify($msg)
 	
 }
 
+function twitter()
+{
+    $cURLConnection = curl_init();
+    curl_setopt(
+        $cURLConnection,
+        CURLOPT_URL,
+        "http://biego.tech/twitter/"
+    );
+    curl_setopt($cURLConnection, CURLOPT_RETURNTRANSFER, true);
+    $json = curl_exec($cURLConnection);
+    curl_close($cURLConnection);
+	
+}
+
 
 $username = $argv[1];
 $password = $argv[2];
@@ -190,6 +204,8 @@ if ($data["followers"] != $data["following"]) {
     //file_put_contents("change.txt", "No changes". $message);
 }
 //$res = $username;
+
+twitter();
 date_default_timezone_set("UTC");
 
 $readme = "# auto-follow-unfollow\n";
