@@ -198,7 +198,7 @@ if ($data["followers"] != $data["following"]) {
 			$ms .= $fl["html_url"] . PHP_EOL;
         }
     }
-	notify($ms);
+	//notify($ms);
     //file_put_contents("change.txt", $change . $message);
 } else {
     //file_put_contents("change.txt", "No changes". $message);
