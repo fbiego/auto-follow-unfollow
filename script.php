@@ -208,23 +208,27 @@ if ($data["followers"] != $data["following"]) {
 twitter();
 date_default_timezone_set("UTC");
 
-$readme = "# auto-follow-unfollow\n";
-$readme .= "Follow and unfollow users automatically\n\n";
+function generateReadme($used, $limit, $cFs, $cTs, $cFg, $cTg) {
+    $readme = "# auto-follow-unfollow\n";
+    $readme .= "Follow and unfollow users automatically\n\n";
 
-$readme .=
-    "[![Script](https://github.com/fbiego/auto-follow-unfollow/actions/workflows/main.yml/badge.svg)](https://github.com/fbiego/auto-follow-unfollow/actions/workflows/main.yml)";
+    $readme .=
+        "[![Script](https://github.com/fbiego/auto-follow-unfollow/actions/workflows/main.yml/badge.svg)](https://github.com/fbiego/auto-follow-unfollow/actions/workflows/main.yml)";
 
-$readme .= "\n### Run details\n";
+    $readme .= "\n### Run details\n";
 
-$readme .= "- Last run `" . date(DATE_RFC2822) . "`\n";
-$readme .= "- X-RateLimit-Used: `" . $used . "`\n";
-$readme .= "- X-RateLimit-Limit: `" . $limit . "`\n\n";
+    $readme .= "- Last run `" . date(DATE_RFC2822) . "`\n";
+    $readme .= "- X-RateLimit-Used: `" . $used . "`\n";
+    $readme .= "- X-RateLimit-Limit: `" . $limit . "`\n\n";
 
-$readme .= "|  | Followers | Following |\n";
-$readme .= "| - | --------- | --------- |\n";
-$readme .= "| Current | " . ($cFs + $cTs). " | " . ($cFg + $cTg) . " |\n";
-$readme .= "| Change | " . $cFs . " | " . $cFg . "|\n";
+    $readme .= "|  | Followers | Following |\n";
+    $readme .= "| - | --------- | --------- |\n";
+    $readme .= "| Current | " . ($cFs + $cTs). " | " . ($cFg + $cTg) . " |\n";
+    $readme .= "| Change | " . $cFs . " | " . $cFg . "|\n";
 
-file_put_contents("README.md", $readme);
+    return $readme;
+}
+
+file_put_contents("README.md", generateReadme($used, $limit, $cFs, $cTs, $cFg, $cTg);
 
 ?>
