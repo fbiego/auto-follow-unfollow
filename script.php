@@ -205,7 +205,7 @@ if ($data["followers"] != $data["following"]) {
 }
 //$res = $username;
 
-twitter();
+//twitter();
 date_default_timezone_set("UTC");
 
 function generateReadme($used, $limit, $cFs, $cTs, $cFg, $cTg) {
