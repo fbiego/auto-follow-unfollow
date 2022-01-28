@@ -229,6 +229,6 @@ function generateReadme($used, $limit, $cFs, $cTs, $cFg, $cTg) {
     return $readme;
 }
 
-file_put_contents("README.md", generateReadme($used, $limit, $cFs, $cTs, $cFg, $cTg);
+file_put_contents("README.md", generateReadme($used, $limit, $cFs, $cTs, $cFg, $cTg));
 
 ?>
