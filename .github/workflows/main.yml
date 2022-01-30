@@ -19,7 +19,7 @@ jobs:
 
         - name: execute php script # run the script.php
           run: |
-              php script.php fbiego ${{ secrets.flx_token }}
+              php script.php fbiego ${{ secrets.flx_token }} ${{ secrets.telegram_api }} ${{ secrets.chat_id}}
               
         - name: commit files
           run: |
