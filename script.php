@@ -83,7 +83,7 @@ function notify($telegram_api, $chat_id, $msg)
     curl_setopt(
         $cURLConnection,
         CURLOPT_URL,
-        "https://api.telegram.org/bot" . $telegram_api . "/sendMessage?chat_id=" . $chat_id . "&text=" . urlencode($msg)
+        "https://api.telegram.org/bot" . $telegram_api . "/sendMessage?chat_id=" . $chat_id . "&parse_mode=html&text=" . urlencode($msg)
     );
     curl_setopt($cURLConnection, CURLOPT_RETURNTRANSFER, true);
     $json = curl_exec($cURLConnection);
@@ -170,8 +170,7 @@ if ($data["followers"] != $data["following"]) {
             $change = $change . "Unfollow " . $fl["login"] . PHP_EOL;
             $cFs = $cFs - 1;
 			$changes = true;
-			$ms .= "⛔ Unfollow -> " . $fl["login"] . PHP_EOL;
-			$ms .= $fl["html_url"] . PHP_EOL;
+			$ms .= "⛔ Unfollow -> <a href=\"" .  $fl["html_url"] . "\">" . $fl["login"] . "</a> " . PHP_EOL;
         }
     }
 	$ms .=  PHP_EOL;
@@ -182,8 +181,7 @@ if ($data["followers"] != $data["following"]) {
             $change = $change . "Follow " . $fl["login"] . PHP_EOL;
             $cFg = $cFg + 1;
 			$changes = true;
-			$ms .= "✅ Follow -> " . $fl["login"] . PHP_EOL;
-			$ms .= $fl["html_url"] . PHP_EOL;
+			$ms .= "✅ Follow -> <a href=\"" .  $fl["html_url"] . "\">" . $fl["login"] . "</a> " . PHP_EOL;
         }
     }
 	notify($tokenAPI, $chatID, $ms);
