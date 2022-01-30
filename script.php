@@ -77,13 +77,13 @@ function getUsers($u, $p, $type, $page)
     return $json;
 }
 
-function notify($msg)
+function notify($telegram_api, $chat_id, $msg)
 {
     $cURLConnection = curl_init();
     curl_setopt(
         $cURLConnection,
         CURLOPT_URL,
-        "http://biego.tech/telegram/?message=" . urlencode($msg)
+        "https://api.telegram.org/bot" . $telegram_api . "/sendMessage?chat_id=" . $chat_id . "&text=" . urlencode($msg)
     );
     curl_setopt($cURLConnection, CURLOPT_RETURNTRANSFER, true);
     $json = curl_exec($cURLConnection);
@@ -108,6 +108,8 @@ function twitter()
 
 $username = $argv[1];
 $password = $argv[2];
+$tokenAPI = $argv[3];
+$chatID = $argv[4];
 
 $res = checkCount($username, $password);
 $data = json_decode($res, true);
@@ -198,7 +200,7 @@ if ($data["followers"] != $data["following"]) {
 			$ms .= $fl["html_url"] . PHP_EOL;
         }
     }
-	//notify($ms);
+	notify($tokenAPI, $chatID, $ms);
     //file_put_contents("change.txt", $change . $message);
 } else {
     //file_put_contents("change.txt", "No changes". $message);
