@@ -182,7 +182,7 @@ function generateReadme($used, $limit, $cFs, $cTs, $cFg, $cTg) {
     $readme .= "Follow and unfollow users automatically\n\n";
 
     $readme .=
-        "[![Script](https://github.com/fbiego/auto-follow-unfollow/actions/workflows/main.yml/badge.svg)](https://github.com/fbiego/auto-follow-unfollow/actions/workflows/main.yml)";
+        "[![Script](https://github.com/kooya3/Hub-automation/actions/workflows/main.yml/badge.svg)](https://github.com/kooya3/Hub-automation/actions/workflows/main.yml)";
 
     $readme .= "\n### Run details\n";
 
