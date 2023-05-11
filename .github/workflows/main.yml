@@ -13,23 +13,23 @@ jobs:
         steps:
         
         - name: checkout repo content
-          uses: actions/checkout@v2 # checkout the repository content to github runner.
+        - uses: actions/checkout@v2.4.4 # checkout the repository content to github runner.
         - name: PHP Runner
           uses: franzliedke/gh-action-php@0.3.0
 
         - name: execute php script # run the script.php
           run: |
-              php script.php fbiego ${{ secrets.flx_token }} ${{ secrets.telegram_api }} ${{ secrets.chat_id}}
+              php script.php  ${{ secrets.flx_token }} ${{ secrets.telegram_api }} ${{ secrets.chat_id}}
               
         - name: commit files
           run: |
-                git config --local user.email "fbiego.fb@gmail.com"
-                git config --local user.name "fbiego"
+                git config --local user.email "elyeestatua@gmail.com"
+                git config --local user.name "kooya3"
                 git add -A
                 git commit -m "run script.php" -a
         
         - name: push changes
-          uses: ad-m/github-push-action@v0.6.0
+        - uses: ad-m/github-push-action@v0.7.1
           with:
             github_token: ${{ secrets.GITHUB_TOKEN }}
             branch: main 
