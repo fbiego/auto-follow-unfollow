@@ -25,10 +25,10 @@ jobs:
           run: |
                 git config --local user.email "fbiego.fb@gmail.com"
                 git config --local user.name "fbiego"
-                git add -A
-                git commit -m "changes" -a
-                git fetch origin main  # Fetch changes from the remote 'main' branch
-                git merge origin/main  # Merge the changes into the local 'main' branch
+                # git add -A
+                # git commit -m "changes" -a
+                # git fetch origin main  # Fetch changes from the remote 'main' branch
+                # git merge origin/main  # Merge the changes into the local 'main' branch
         - name: commit files
           run: |
                 git add -A
