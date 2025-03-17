@@ -163,7 +163,7 @@ if ($data["followers"] != $data["following"]) {
 	$ms = "<b>New change</b>" . PHP_EOL  . PHP_EOL;
 
     foreach ($following as $fl) {
-break;
+	break;
         $Following[$fl["login"]] = $fl["html_url"];
         if (!array_key_exists($fl["login"], $Followers)) {
             $dif2[$fl["login"]] = $fl["html_url"];
